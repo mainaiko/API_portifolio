@@ -1,0 +1,40 @@
+#chamo a versao que quero do docker-compose
+
+version: '3.8'
+
+
+#crio os serviços (containers) que quero subir
+services:
+  # Defino o serviço do banco de dados
+  db:
+    # Uso a imagem do postgres
+    image: postgres:15-alpine
+    # Defino o nome para facilitar a identificação do container
+    container_name: workoutapi
+    # Defino que o serviço deve reiniciar automaticamente
+    restart: always
+    # Defino as variaveis de ambiente necessárias para o banco de dados
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: senha123
+      POSTGRES_DB: meubanco
+    # Mapeio a porta do banco de dados para a máquina local
+    ports:
+      - "5433:5432"
+
+# Defino o serviço da aplicação FastAPI
+  web:
+    # Uso o Docker file que esta na raiz para construir a imagem
+    build: .
+    container_name: fastapi_app
+    restart: always
+    # Indico que o serviço depende do banco para iniciar
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+      # Defino a variavel de ambiente para a conexão com o banco de dados
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:senha123@db:5432/meubanco
+
+# proximo passo database
