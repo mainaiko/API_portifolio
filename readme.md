@@ -17,6 +17,12 @@ Bom inicialmente criei o docker file para minha imagem principal em seguida defi
 certifique-se que esta na pasta workout e rode na linha de comando
 
 docker-compose up --build -d
+
+
 docker-compose exec web bash
+
+
 alembic init app/migrations
+
+
 alembic revision --autogenerate -m "criação inicial"
