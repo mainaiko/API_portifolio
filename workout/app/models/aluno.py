@@ -11,7 +11,7 @@ import
 from sqlalchemy import Column, Integer, String, Date, Boolean
 from .base import BaseModel  
 
-# Defino o modelo Aluno que herda de BaseModel e representa a tabela "alunos" no banco de dados
+# Modelo Aluno que herda de BaseModel e representa a tabela "alunos" no banco de dados
 class Aluno(BaseModel):
     __tablename__ = "alunos"
 
@@ -22,5 +22,3 @@ class Aluno(BaseModel):
     data_nascimento = Column(Date, nullable=False)
     telefone = Column(String, unique=True, nullable=False)
     ativo = Column(Boolean, default=True)
-
-# Proximo passo schemas

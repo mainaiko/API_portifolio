@@ -14,7 +14,7 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import date, datetime
 
-# Defino os modelos de dados para o Aluno usando Pydantic
+# Modelos de dados para o Aluno
 class AlunoBase(BaseModel):
     nome: str
     idade: int
@@ -22,17 +22,14 @@ class AlunoBase(BaseModel):
     data_nascimento: date
     telefone: str
 
-# Defino o modelo de criação do Aluno, que herda de AlunoBase
 class AlunoCreate(AlunoBase):
     pass
 
-# Defino o modelo de atualização do Aluno, que herda de AlunoBase
 class AlunoUpdate(BaseModel):
     nome: Optional[str] = None
     idade: Optional[int] = None
     email: Optional[EmailStr] = None
 
-# Defino o modelo de saída do Aluno, que herda de AlunoBase e inclui campos adicionais
 class AlunoOut(AlunoBase):
     id: int
     data_nascimento: date
@@ -40,8 +37,6 @@ class AlunoOut(AlunoBase):
     criado_em: datetime
     atualizado_em: Optional[datetime] = None
 
-    # Configuração para permitir que o Pydantic converta modelos ORM em modelos Pydantic
+    # Configuração para permitir que modelos ORM sejam convertidos para Pydantic
     class Config:
         orm_mode = True
-
-# Proximo passo definir o alembic para criar as tabelas no banco de dados
