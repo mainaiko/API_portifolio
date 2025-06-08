@@ -50,7 +50,7 @@ Pare os containers
 docker stop workout-web workout-db
 docker rm workout-web workout-db
 
-
+```
 
 Para dúvidas, abra uma issue ou envie um email para aikomarques58912@gmail.com
 
