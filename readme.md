@@ -15,31 +15,31 @@ Bom inicialmente criei o docker file para minha imagem principal em seguida defi
 
 No terminal
 
-'''
+```bash
 #Imagem do fastapi
 docker pull aikomarques/workout-web:latest
 
 #Imagem do banco
 docker pull aikomarques/postgres:15
-'''
+
 
 Inicie o banco de dados
-'docker run -d \
+docker run -d \
   --name workout-db \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=senha123 \
   -e POSTGRES_DB=workout \
   -p 5433:5432 \
   aikomarques/postgres:15
-'
+
 Inicie a aplicação web
-'docker run -d \
+docker run -d \
   --name workout-web \
   -e DATABASE_URL=postgresql://postgres:senha123@workout-db:5432/workout \
   --link workout-db \
   -p 8000:8000 \
   aikomarques/workout-web:latest
-'
+
 Acesse a aplicação
 
 
@@ -47,9 +47,9 @@ http://localhost:8000/
 
 
 Pare os containers
-'docker stop workout-web workout-db
+docker stop workout-web workout-db
 docker rm workout-web workout-db
-'
+
 
 
 Para dúvidas, abra uma issue ou envie um email para aikomarques58912@gmail.com
