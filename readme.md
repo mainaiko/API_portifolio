@@ -21,9 +21,10 @@ docker pull aikomarques/workout-web:latest
 
 #Imagem do banco
 docker pull aikomarques/postgres:15
-
+```
 
 Inicie o banco de dados
+```bash
 docker run -d \
   --name workout-db \
   -e POSTGRES_USER=postgres \
@@ -31,25 +32,30 @@ docker run -d \
   -e POSTGRES_DB=workout \
   -p 5433:5432 \
   aikomarques/postgres:15
+```
+
 
 Inicie a aplicação web
+```bash
 docker run -d \
   --name workout-web \
   -e DATABASE_URL=postgresql://postgres:senha123@workout-db:5432/workout \
   --link workout-db \
   -p 8000:8000 \
   aikomarques/workout-web:latest
+```
+
 
 Acesse a aplicação
-
-
+```bash
 http://localhost:8000/
+```
 
 
 Pare os containers
+```bash
 docker stop workout-web workout-db
 docker rm workout-web workout-db
-
 ```
 
 Para dúvidas, abra uma issue ou envie um email para aikomarques58912@gmail.com
