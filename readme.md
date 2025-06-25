@@ -13,6 +13,9 @@ Bom inicialmente criei o docker file para minha imagem principal em seguida defi
 
 # Como testar?
 
+requisitos: docker, docker compose, postgresql-client
+
+
 No terminal
 
 ```bash
@@ -22,8 +25,8 @@ docker pull aikomarques/workout-web:latest
 #Imagem do banco
 docker pull aikomarques/postgres:15
 ```
-
-Inicie o banco de dados
+_______________________________________________________________________________________
+Inicie o banco de dados com a imagem oficial
 ```bash
 docker run -d \
   --name workout-db \
@@ -31,11 +34,15 @@ docker run -d \
   -e POSTGRES_PASSWORD=senha123 \
   -e POSTGRES_DB=workout \
   -p 5433:5432 \
-  aikomarques/postgres:15
+  postgres:15
 ```
 
+Conferir se esta ativo
+```bash
+docker ps
+```
 
-Inicie a aplicação web
+Inicie a aplicação web apontando para o banco
 ```bash
 docker run -d \
   --name workout-web \
@@ -45,6 +52,11 @@ docker run -d \
   aikomarques/workout-web:latest
 ```
 
+Teste de conexão
+```bash
+psql -h localhost -p 5433 -U postgres -d workout
+```
+_______________________________________________________________________________________
 
 Acesse a aplicação
 ```bash
