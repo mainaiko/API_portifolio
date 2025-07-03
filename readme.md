@@ -13,7 +13,8 @@ Bom inicialmente criei o docker file para minha imagem principal em seguida defi
 
 # Como testar?
 
-requisitos: docker, docker compose, postgresql-client
+
+Requisitos: docker, docker compose, postgresql-client
 
 
 No terminal
@@ -70,7 +71,7 @@ docker stop workout-web workout-db
 docker rm workout-web workout-db
 ```
 
-Para dúvidas, abra uma issue ou envie um email para aikomarques58912@gmail.com
+Para dúvidas, sugestões abra uma issue ou envie um email para aikomarques58912@gmail.com
 
 
 

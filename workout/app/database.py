@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:senha123@localhost:5433/workout")
@@ -9,6 +9,8 @@ engine = create_engine(DATABASE_URL, echo=True)
 
 # Sessionmaker síncrona
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
+
+Base = declarative_base()
 
 # Função para injetar a sessão no FastAPI
 def get_db():
