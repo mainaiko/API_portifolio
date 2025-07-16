@@ -7,7 +7,7 @@ import
 """
 from sqlalchemy import Column, DateTime, func
 from sqlalchemy.orm import declarative_base
-from workout.app.database import Base
+from app.database import Base
 
 # Classe base para os models
 class BaseModel(Base):

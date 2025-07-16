@@ -39,4 +39,4 @@ class AlunoOut(AlunoBase):
 
     # Configuração para permitir que modelos ORM sejam convertidos para Pydantic
     class Config:
-        orm_mode = True
+        from_attributes = True

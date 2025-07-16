@@ -1,5 +1,3 @@
-version: "3.9"
-#criando os containers do banco de dados e da aplicação web
 services:
   db:
     image: postgres:15
@@ -10,19 +8,26 @@ services:
       POSTGRES_DB: workout
     ports:
       - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d workout"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
       #garantindo persistencia dos dados
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   web:
     build: .
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
     volumes:
       - .:/app
     ports:
-      - "8000:8000"
-    depends_on:
-      - db
+      - "8000:8000"    
+    depends_on:      
+      db:
+        condition: service_healthy
+
       #conexão com o banco de dados
     environment:
       DATABASE_URL: postgresql://postgres:senha123@db:5432/workout
