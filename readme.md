@@ -1,77 +1,64 @@
-# Objetivos
+# API de Gerenciamento de Alunos (Workout)
 
-Criar uma API Restful capaz de executar operaçoes CRUD utilizando um servidor SQL
-
-# Ferramentas
-
-python 🐍 | FastApi | PostgreSQL SQLalchemy | Docker 🐋 | Alembic
+Uma API RESTful para gerenciar informações de alunos, construída com Python, FastAPI, PostgreSQL, SQLAlchemy e Docker.
 
 # Descrição
 
 Fiz esse projeto com o intuito de testar minhas habilidades em python criando uma API totalmente do zero. Pesquisei a melhor framework para meu projeto e utilizei o postgreSQL pois estava mais familizaridada com minhas aulas do dia a dia. Docker e alembic realmente foram uma novidade para mim.
-Bom inicialmente criei o docker file para minha imagem principal em seguida defini o docker compose para trabalhar com 2 containers, criei o data base para injeçao de dados no banco sincrono, apos isso foi a hora dos models e schemas simples e rapido, fui configurar o alembic para as operaçoes CRUD, criei o arquivo main onde tudo acontece e por fim fiz umas configuraçoes no alembic.ini. Apos algumas correçoes de erros e algumas frustraçoes cheguei no resultado final tive que deixar o banco de dados sincrono porque o assincrono estava dando muitos erros e n conseguia chegar a uma conclusao(coisa de iniciante talvez).
+Criei o database e o main em seguida criei os models e schemas, moldei melhor o main e reformulei o data base de acordo com engine sincrona. Coloquei o alembic para melhor automação e controle do Banco de dados. Configurei os arquivos docker e claro que deu erro, tive que reformular melhor o codigo arrumar alguns imports e o alembic. Por fim consegui fazer a aplicação rodar da maneira que gostaria.
 
-# Como testar?
+## Tecnologias
 
+*   Python
+*   FastAPI
+*   PostgreSQL
+*   SQLAlchemy
+*   Alembic
+*   Docker
 
-Requisitos: docker, docker compose, postgresql-client
+## Pré-requisitos
 
+*   Docker e Docker Compose
 
-No terminal
+## Executando a Aplicação
+
+1.  **Clone o repositório:**
+
+    ```bash
+    git clone https://github.com/mainaiko/API_portifolio.git
+    ```
+
+2.  **Inicie os containers:**
+
+    ```bash
+    docker compose build
+    docker compose up -d
+    ```
+
+3.  **Acesse a API:**
+
+    A API estará disponível em `http://localhost:8000/docs`.
+
+## Testando a API
+
+Você pode usar ferramentas como Postman para interagir com a API.
+
+## Migrações (Alembic)
+
+As migrações do banco de dados são gerenciadas com Alembic. Para aplicá-las:
+
+1.  Entre no container da aplicação:
+
+    ```bash
+    docker-compose exec web bash
+    ```
+
+2.  Execute os comandos do Alembic (dentro do container):
+
+    *   Para aplicar as migrações:  `alembic upgrade head`
+
+## Parando a Aplicação
 
 ```bash
-#Imagem do fastapi
-docker pull aikomarques/workout-web:latest
-
-#Imagem do banco
-docker pull aikomarques/postgres:15
+docker-compose down
 ```
-_______________________________________________________________________________________
-Inicie o banco de dados com a imagem oficial
-```bash
-docker run -d \
-  --name workout-db \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=senha123 \
-  -e POSTGRES_DB=workout \
-  -p 5433:5432 \
-  postgres:15
-```
-
-Conferir se esta ativo
-```bash
-docker ps
-```
-
-Inicie a aplicação web apontando para o banco
-```bash
-docker run -d \
-  --name workout-web \
-  -e DATABASE_URL=postgresql://postgres:senha123@workout-db:5432/workout \
-  --link workout-db \
-  -p 8000:8000 \
-  aikomarques/workout-web:latest
-```
-
-Teste de conexão
-```bash
-psql -h localhost -p 5433 -U postgres -d workout
-```
-_______________________________________________________________________________________
-
-Acesse a aplicação
-```bash
-http://localhost:8000/
-```
-
-
-Pare os containers
-```bash
-docker stop workout-web workout-db
-docker rm workout-web workout-db
-```
-
-Para dúvidas, sugestões abra uma issue ou envie um email para aikomarques58912@gmail.com
-
-
-
